@@ -1,0 +1,30 @@
+# Ignore the Python virtual environment
+osteoporosis-knee-env/
+
+# Ignore datasets (these should be stored elsewhere)
+*augmented_data*/
+*Osteoporosis*Knee*Dataset*/
+*Patient*Data*/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# Ignore virtual environment / package-related folders
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Ignore Jupyter Notebook checkpoints
+**/.ipynb_checkpoints/
+
+# Ignore test cache
+.pytest_cache/
+
+# Ignore dotenv files
+.env
