@@ -10,11 +10,11 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 
 # Load the pre-trained models
-tabular_model = joblib.load('Logistic_knee_models.pk1')  # Update with correct path
-tabular_scaler = joblib.load('Knee_scaler.pkl')  # Update with correct path
+tabular_model = joblib.load('/Users/atharvadumbre/Osteoporosis_knee_Classification-main/artifacts/Logistic_knee_models.pk1')  # Update with correct path
+tabular_scaler = joblib.load('/Users/atharvadumbre/Osteoporosis_knee_Classification-main/artifacts/Knee_scaler.pkl')  # Update with correct path
 
 # Load the CNN model
-image_model = load_model('cnn_model.h5')  # Update with correct path
+image_model = load_model('/Users/atharvadumbre/Osteoporosis_knee_Classification-main/artifacts/cnn_model.h5')  # Update with correct path
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
@@ -65,8 +65,8 @@ click on this link to download Knee x-ray images  https://github.com/31Atharva/O
 # Patient Data Classification
 # Load model and scaler once
 def load_logistic_model():
-    model = joblib.load('Logistic_knee_models.pk1')  # Update with correct path
-    scaler = joblib.load('Knee_scaler.pkl')  # Update with correct path
+    model = joblib.load('/Users/atharvadumbre/Osteoporosis_knee_Classification-main/artifacts/Logistic_knee_models.pk1')  # Update with correct path
+    scaler = joblib.load('/Users/atharvadumbre/Osteoporosis_knee_Classification-main/artifacts/Knee_scaler.pkl')  # Update with correct path
     return model, scaler
 
 tabular_model, tabular_scaler = load_logistic_model()

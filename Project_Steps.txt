@@ -172,4 +172,6 @@ Osteoporosis Knee Classification is a machine learning project that automates th
 
 
 ECR repo link 
-  517419764977.dkr.ecr.eu-north-1.amazonaws.com/osteoporosis_knee_classification
+517419764977.dkr.ecr.ap-south-1.amazonaws.com/osteoporosis_knee_classification
+
+osteoporosis_knee_classification
