@@ -83,7 +83,7 @@ jobs:
       
       - name: Run Docker Image to serve users
         run: |
-          docker run -d -p 8080:8501 --ipc="host" --name=mltest ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+          docker ps -q --filter "name=knee-app-container" | grep -q . && docker stop knee-app-container && docker rm -fv knee-app-container
             
       - name: Clean previous images and containers
         run: |
