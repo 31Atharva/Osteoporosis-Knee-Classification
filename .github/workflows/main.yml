@@ -12,38 +12,20 @@ on:
 # They are populated with values from your repository's secrets.
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }} # Mapped to your ECR_REPOSITORY_NAME secret
-  ECS_SERVICE: ${{ secrets.ECS_SERVICE }}             # Assumes you have created an ECS_SERVICE secret
-  ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}             # Assumes you have created an ECS_CLUSTER secret
-  ECS_TASK_DEFINITION: "task-definition.json"         # Path to your task definition file in the repo
-  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}       # Assumes you have created a CONTAINER_NAME secret
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+  ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
+  ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
+  ECS_TASK_DEFINITION: "task-definition.json"
+  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
 
 permissions:
   contents: read
 
 jobs:
-  # This job is commented out as it was for placeholder lint/test steps.
-  # You can uncomment and expand it with your actual integration tests.
-  #
-  # integration:
-  #   name: Continuous Integration
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Lint code
-  #       run: echo "Linting repository"
-  #
-  #     - name: Run unit tests
-  #       run: echo "Running unit tests"
-
   build-and-push-image:
     name: Build and Push to ECR
-    # needs: integration # Uncomment if you use the integration job
     runs-on: ubuntu-latest
-    # The 'production' environment is not defined in your secrets list.
-    # If you have an environment set up in GitHub, keep this line. Otherwise, you may remove it.
+    # If you haven't set up a "production" environment in repo settings, you can remove the next line.
     environment: production
     outputs:
       image: ${{ steps.build-image.outputs.image }}
@@ -71,12 +53,14 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT
 
   deploy-to-ecs:
     name: Deploy to ECS
     needs: build-and-push-image
     runs-on: ubuntu-latest
+    # If you haven't set up a "production" environment in repo settings, you can remove the next line.
     environment: production
 
     steps:
